@@ -9,7 +9,7 @@ export interface Collection<E> extends Iterable<E> {
    * Ensures that this collection contains the specified element (optional operation).
    * @param element that will be added to the collection
    */
-  add(element: E): boolean;
+  add(element: E, index?: number): boolean;
 
   /**
    * ents in the specified collection to this collection (optional operation).

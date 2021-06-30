@@ -1,9 +1,11 @@
+import { Collection } from '../collection/collection.interface';
+import { Iterator } from '../collection/iterator.interface';
 import { ListNode } from './list-node.interface';
 
 /**
  * We defined here the common operations of a linkedlist
  */
-export abstract class BaseListNode<E> {
+export abstract class BaseListNode<E> implements Collection<E> {
   /**
    * First element in the list.
    * @type { Object }
@@ -25,18 +27,12 @@ export abstract class BaseListNode<E> {
   _length: number = 0;
 
   /**
-   * Appends the specified element to the end of this list
-   * @param element represents the data we will add to the list
-   */
-  abstract add(element: E): boolean;
-
-  /**
    * Inserts the specified element at the specified position in the list
    * @param element represents the data we will add to the list
    * @param index represents the position where we want to insert the element.
    *              Its value is optional
    */
-  abstract add(element: E, index?: number): void;
+  abstract add(element: E, index?: number): boolean;
 
   /**
    * Inserts the specified element at the beginning of the list
@@ -216,4 +212,26 @@ export abstract class BaseListNode<E> {
    * (from first to last element).
    */
   abstract toArray(): Array<E>;
+
+  addAll(values: Collection<any extends E ? E : any>): boolean {
+    throw new Error('Method not implemented.');
+  }
+  containsAll(c: Collection<any>): boolean {
+    throw new Error('Method not implemented.');
+  }
+  equals(object: Object): boolean {
+    throw new Error('Method not implemented.');
+  }
+  isEmpty(): boolean {
+    throw new Error('Method not implemented.');
+  }
+  removeAll(c: Collection<any>): boolean {
+    throw new Error('Method not implemented.');
+  }
+  retainAll(c: Collection<any>): boolean {
+    throw new Error('Method not implemented.');
+  }
+  iterator(): Iterator<E> {
+    throw new Error('Method not implemented.');
+  }
 }

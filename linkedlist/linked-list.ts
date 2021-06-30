@@ -2,13 +2,65 @@ import { BaseListNode } from "./linked-list-base.abstract";
 import { ListNode } from "./list-node.interface";
 
 export default class LinkedList<E> extends BaseListNode<E> {
-  add(element: E): boolean;
-  
-  add(element: E, index?: number): void;
-  
-  add(element: any, index?: any): boolean | void {
-    throw new Error("Method not implemented.");
+
+  private createNode(element: E): ListNode<E> {
+    return {
+      item: element,
+      prev: null,
+      next: null,
+    }
   }
+
+  private getNode(index: number): ListNode<E> | null {
+    if (index < 0 || index >= this._length) {
+      return null;
+    }
+
+    if (index === (this._length - 1)) {
+      return this.tail;
+    }
+
+    let node = this.head;
+    for (let i = 0; i < index && node !== null; i++) {
+      node = node.next;
+    }
+
+    return node;
+  }
+
+  add(element: E, index?: number): boolean {
+    if (typeof index === 'undefined' ) {
+      index = this._length;
+    }
+
+    if (index < 0 || index > this._length || typeof element === 'undefined') {
+      return false;
+    }
+
+    const newNode = this.createNode(element);
+
+    if (this._length === 0 || this.tail === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else if (index === this._length) {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    } else if (index === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+    } else {
+      const prev = this.getNode(index - 1);
+      if (prev === null) {
+        return false;
+      }
+      newNode.next = prev.next;
+      prev.next = newNode;
+    }
+
+    this._length++;
+    return true;
+  }
+  
   addFirst(element: E): void {
     throw new Error("Method not implemented.");
   }
